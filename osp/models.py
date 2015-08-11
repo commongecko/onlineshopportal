@@ -1,6 +1,6 @@
 from django.db import models
 
-class Items(models.Model):
+class Item(models.Model):
     name = models.CharField(max_length=50)
     cost = models.IntegerField()
     discount = models.SmallIntegerField(default=0)
@@ -12,9 +12,9 @@ class Items(models.Model):
 class Basket(models.Model):
     totalbill = models.IntegerField()
 
-class Transactions(models.Model):
+class Transaction(models.Model):
     pass
 
-class Customers(models.Model):
+class Customer(models.Model):
     basket = models.ForeignKey(Basket)
-    history = models.ForeignKey(Transactions)
+    history = models.ForeignKey(Transaction)
