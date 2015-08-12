@@ -1,0 +1,10 @@
+<h3>Available items</h3>
+{% if item_list %}
+    <ul>
+    {% for item in item_list %}
+    <li><a href="/{{ item.name }}/">{{ item.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Stock empty.</p>
+{% endif %}

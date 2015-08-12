@@ -4,4 +4,13 @@ from osp.models import Item
 
 def index(request):
     item_list = Item.objects.all()
-    return HttpResponse(item_list)
+    context = {'item_list': item_list}
+    return render(request, 'osp/index.html', context)
+
+def basket(request):
+    pass
+
+def detail(request, prod_name):
+    item = Item.objects.get(name=prod_name)
+    context = {'item': item}
+    return render(request, 'osp/detail.html', context)

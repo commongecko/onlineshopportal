@@ -1,0 +1,11 @@
+<h3>{{ item.name }}</h3>
+Price: Rs {{ item.cost }}
+<br />
+Discount: {{ item.discount}}%
+
+<form action="" method="post">
+{% csrf_token %}
+Items to add: <input type="number" name="numofitems" id="numofitems" value="{{ item.purchase_quantity }}"/>
+<br />
+<input type="submit" value="Add to basket" />
+</form>
