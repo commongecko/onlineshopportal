@@ -6,6 +6,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'shop_portal.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'', include('osp.urls')),
+    url(r'', include('osp.urls', namespace="osp")),
     url(r'^admin/', include(admin.site.urls)),
 )

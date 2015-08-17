@@ -2,7 +2,7 @@
 {% if item_list %}
     <ul>
     {% for item in item_list %}
-    <li><a href="/{{ item.name }}/">{{ item.name }}</a></li>
+    <li><a href="{% url 'osp:detail' item.name %}">{{ item.name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

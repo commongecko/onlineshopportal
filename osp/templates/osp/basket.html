@@ -1,0 +1,10 @@
+<h3>Shopping basket<h3>
+
+<ol>
+{% for item in basket.item_set.all %}
+    <li>{{ item.name }} - Rs {{ item.cost }} - Quantity: {{ item.purchase_quantity}}</li>
+{% endfor %}
+</ol>
+Total: {{ basket.totalbill }}
+<br />
+Checkout

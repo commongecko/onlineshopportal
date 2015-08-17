@@ -1,4 +1,23 @@
 from django.db import models
+from datetime import datetime
+
+class Customer(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Transaction(models.Model):
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    customer = models.OneToOneField(Customer, null=True)
+
+
+class Basket(models.Model):
+    customer = models.OneToOneField(Customer, null=True)
+    totalbill = models.IntegerField()
+    transaction = models.ForeignKey(Transaction, null=True)
+
 
 class Item(models.Model):
     name = models.CharField(max_length=50)
@@ -6,23 +25,11 @@ class Item(models.Model):
     discount = models.SmallIntegerField(default=0)
     available = models.IntegerField(default=1)
     purchase_quantity = models.IntegerField(default=1)
+    basket = models.ManyToManyField(Basket)
 
     def __unicode__(self):
         return self.name
 
-class Basket(models.Model):
-    items = models.ManyToManyField(Item)
-    totalbill = models.IntegerField()
 
-class Transaction(models.Model):
-    #datentime = models.DateTimeField('date of transaction')
-    #order = models.ForeignKey(Basket)
+class Seller(models.Model):
     pass
-
-class Customer(models.Model):
-    name = models.CharField(max_length=50)
-    basket = models.ForeignKey(Basket)
-    history = models.ForeignKey(Transaction)
-
-    def __unicode__(self):
-        return self.name
