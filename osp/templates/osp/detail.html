@@ -1,3 +1,7 @@
+{% extends "osp/base.html" %}
+
+{% block content %}
+
 <h3>{{ item.name }}</h3>
 Price: Rs {{ item.cost }}
 <br />
@@ -9,3 +13,5 @@ Items to add: <input type="number" name="numofitems" id="numofitems" value="1"/>
 <br />
 <input type="submit" value="Add to basket" />
 </form>
+
+{% endblock %}

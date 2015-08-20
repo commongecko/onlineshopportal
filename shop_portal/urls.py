@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 
     url(r'', include('osp.urls', namespace="osp")),
     url(r'^admin/', include(admin.site.urls)),
+    url('^', include('django.contrib.auth.urls')),
 )

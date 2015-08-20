@@ -1,3 +1,7 @@
+{% extends "osp/base.html" %}
+
+{% block content %}
+
 <h3>Available items</h3>
 {% if item_list %}
     <ul>
@@ -8,3 +12,5 @@
 {% else %}
     <p>Stock empty.</p>
 {% endif %}
+
+{% endblock %}

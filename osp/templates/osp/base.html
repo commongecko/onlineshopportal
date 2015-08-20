@@ -1,0 +1,21 @@
+<html>
+<title>Online shopping portal</title>
+<body>
+    <div>
+        Welcome,
+        {% if user.is_anonymous %}
+            <em> Guest! </em>
+            <a href="{% url 'login' %}">login</a>
+        {% else %}
+            <em> {{ user }}! </em>
+            <a href="{% url 'logout' %}">logout</a>
+        {% endif %}
+    </div>
+
+    <p>
+    {% block content %}
+
+    {% endblock %}
+    </p>
+</body>
+</html>
