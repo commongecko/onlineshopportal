@@ -1,10 +1,14 @@
-<h3>Shopping basket<h3>
+<h3>Shopping basket</h3>
 
-<ol>
-{% for item in basket.item_set.all %}
-    <li>{{ item.name }} - Rs {{ item.cost }} - Quantity: {{ item.purchase_quantity}}</li>
-{% endfor %}
-</ol>
-Total: {{ basket.totalbill }}
-<br />
-Checkout
+{% if not basket.item_set.all %}
+    <p>No items.</p>
+{% else %}
+    <ol>
+    {% for item in basket.item_set.all %}
+        <li><a href="{% url 'osp:detail' item.name %}">{{ item.name }}</a> - Rs {{ item.cost }} - Quantity: {{ item.purchase_quantity }}</li>
+    {% endfor %}
+    </ol>
+    Total: {{ basket.totalbill }}
+    <br />
+    <a href="{% url 'osp:checkout' %}">Checkout</a>
+{% endif %}

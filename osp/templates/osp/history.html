@@ -1,0 +1,15 @@
+<h3>Order History</h3>
+<ol>
+{% for basket in t.basket_set.all %}
+    <li>
+    <ul>
+    {{ t.date }}
+    <br />
+    {% for item in basket.item_set.all %}
+    <li>{{ item.name }} - {{ item.cost }} - Qty: {{ item.purchase_quantity }}</li>
+    {% endfor %}
+    </ul>
+    </li>
+    Total: {{ basket.totalbill }} 
+{% endfor %}
+</ol>

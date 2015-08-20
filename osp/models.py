@@ -14,9 +14,10 @@ class Transaction(models.Model):
 
 
 class Basket(models.Model):
-    customer = models.OneToOneField(Customer, null=True)
+    customer = models.ForeignKey(Customer, null=True)
     totalbill = models.IntegerField()
     transaction = models.ForeignKey(Transaction, null=True)
+    current = models.BooleanField(default=True)
 
 
 class Item(models.Model):
