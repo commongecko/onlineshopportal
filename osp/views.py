@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from osp.models import Item, Basket, Customer, Transaction
+from osp.models import Item, Basket, Customer, Transaction, Wishlist
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
@@ -48,7 +48,7 @@ def add_to_basket(request, prod_name):
     item = Item.objects.get(name=prod_name)
     try:
         c = Customer.objects.get(name=current_user)
-    except:
+    except ObjectDoesNotExist:
         c = Customer(name=current_user)
         c.save()
 
@@ -71,6 +71,40 @@ def add_to_basket(request, prod_name):
 
     basket.item_set.add(item)    
     return HttpResponseRedirect(reverse('osp:basket'))
+
+
+def add_to_wishlist(request, prod_name):
+    current_user = userassert(request)
+    item = Item.objects.get(name=prod_name)
+    try:
+        c = Customer.objects.get(name=current_user)
+    except:
+        c = Customer(name=current_user)
+        c.save()
+
+    try:
+        wishlist = Wishlist.objects.get(customer__name=current_user)
+    except ObjectDoesNotExist:
+        wishlist = Wishlist(customer=c)
+        wishlist.save()
+    wishlist.item_set.add(item)
+    return HttpResponseRedirect(reverse('osp:wishlist'))
+
+
+def wishlist(request):
+    current_user = userassert(request)
+    try:
+        wishlist = Wishlist.objects.get(customer__name=current_user)
+    except ObjectDoesNotExist:
+        try:
+            c = Customer.objects.get(name=current_user)
+        except ObjectDoesNotExist:
+            c = Customer(name=current_user)
+            c.save()
+        wishlist = Wishlist(customer=c)
+        wishlist.save()
+    context = {'wishlist': wishlist}
+    return render(request, 'osp/wishlist.html', context)
 
 
 def checkout(request):

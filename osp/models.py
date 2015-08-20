@@ -20,6 +20,10 @@ class Basket(models.Model):
     current = models.BooleanField(default=True)
 
 
+class Wishlist(models.Model):
+    customer = models.OneToOneField(Customer, null=True)
+
+
 class Item(models.Model):
     name = models.CharField(max_length=50)
     cost = models.IntegerField()
@@ -27,6 +31,7 @@ class Item(models.Model):
     available = models.IntegerField(default=1)
     purchase_quantity = models.IntegerField(default=1)
     basket = models.ManyToManyField(Basket)
+    wishlist = models.ForeignKey(Wishlist, null=True)
 
     def __unicode__(self):
         return self.name

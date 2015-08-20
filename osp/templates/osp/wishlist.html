@@ -1,0 +1,15 @@
+{% extends "osp/base.html" %}
+
+{% block content %}
+
+<h3>Wishlist</h3>
+{% if not wishlist.item_set.all %}
+    <p>No items in your wishlist.</p>
+{% else %}
+    <ol>
+    {% for item in wishlist.item_set.all %}
+        <li><a href="{% url 'osp:detail' item.name %}">{{ item.name }}</a> - Rs{{ item.cost }}</li>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
