@@ -1,0 +1,29 @@
+{% extends "osp/base.html" %}
+
+{% block content %}
+
+<h3>Edit item {{ item.name }}</h3>
+
+{% if edit %}
+<form action="{% url 'osp:edit_item' item.name %}" method="post">
+{% csrf_token %}
+New item name:<br>
+<input type="text" name="itemname" value="{{ item.name }}"/>
+<br>
+New price:<br>
+<input type="number" name="cost" value="{{ item.cost }}"/>
+<br>
+New discount:<br>
+<input type="number" name="discount" value="{{ item.discount }}"/>
+<br>
+New number of items to add (availability):<br>
+<input type="number" name="available" value="{{ item.available }}"/>
+<br>
+<br>
+<input type="submit" value="Save changes" />
+</form>
+{% else %}
+You don't have the permission to edit this item.
+{% endif %}
+
+{% endblock %}

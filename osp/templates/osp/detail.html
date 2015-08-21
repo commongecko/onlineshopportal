@@ -2,7 +2,13 @@
 
 {% block content %}
 
-<h3>{{ item.name }}</h3>
+<h3>{{ item.name }}</h3> 
+
+{% if edit %}
+    <a href="{% url 'osp:edit_item' item.name %}">Edit</a> | 
+    <a href="{% url 'osp:del_item' item.name %}">Delete</a>
+    <br><br>
+{% endif %}
 Price: Rs {{ item.cost }}
 <br>
 Discount: {{ item.discount }}

@@ -10,9 +10,13 @@ from django.contrib.auth.decorators import login_required
 
 def userassert(req):
     if req.user.is_authenticated():
-        return req.user.username
+        if req.user.username == 'admin':
+            return 'defaultguest'
+        else:
+            return req.user.username
     else:
         return 'defaultguest'
+
 
 def index(request):
     item_list = Item.objects.all()
@@ -32,14 +36,19 @@ def basket(request):
             c.save()
         basket = Basket(customer=c, totalbill=0, current=True)
         basket.save()
-        #dummyitem = Item('n', 0, 0, 0, 0, basket) 
     context = {'basket': basket}
     return render(request, 'osp/basket.html', context)
 
 
 def detail(request, prod_name):
     item = Item.objects.get(name=prod_name)
-    context = {'item': item}
+    if request.user.has_perm('osp.change_item') and item.seller == request.user.username:
+        edit = True
+    else:
+        edit = False
+
+    context = {'item': item,
+               'edit': edit }
     return render(request, 'osp/detail.html', context)
 
 
@@ -155,3 +164,32 @@ def add_item(request):
         return render(request, 'osp/itemadded.html',) 
     else:
         return render(request, 'osp/additem.html',)
+
+
+def edit_item(request, prod_name):
+    item = Item.objects.get(name=prod_name)
+    if request.user.has_perm('osp.change_item') and item.seller == request.user.username:
+        edit = True
+    else:
+        edit = False
+
+    context = {'item': item,
+               'edit': edit }
+
+    if request.method == 'POST':
+        item.name = request.POST['itemname']
+        item.cost = int(request.POST['cost'])
+        item.discount = int(request.POST['discount'])
+        item.available = int(request.POST['available'])
+        item.save()
+        return HttpResponseRedirect(reverse( 'osp:detail', args=(item.name,)))
+    else:
+        return render(request, 'osp/edititem.html', context)
+
+
+def del_item(request, prod_name):
+    item = Item.objects.get(name=prod_name)
+    if request.user.has_perm('osp.delete_item') and item.seller == request.user.username:
+        item.delete()
+
+    return HttpResponseRedirect(reverse('osp:index'))

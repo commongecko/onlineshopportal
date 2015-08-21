@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^wishlist/$', views.wishlist, name='wishlist'),
     url(r'^(?P<prod_name>\w+\d+)/wishlist/$', views.add_to_wishlist, name='add_to_wishlist'),
     url(r'^additem/$', views.add_item, name='add_item'),
+    url(r'^edititem/(?P<prod_name>\w+\d+)/$', views.edit_item, name='edit_item'),
+    url(r'^delitem/(?P<prod_name>\w+\d+)/$', views.del_item, name='del_item'),
 ]
