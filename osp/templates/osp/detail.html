@@ -4,13 +4,18 @@
 
 <h3>{{ item.name }}</h3>
 Price: Rs {{ item.cost }}
-<br />
-Discount: {{ item.discount}}%
+<br>
+Discount: {{ item.discount }}
+<br>
+Seller: {{ item.seller }}
+<br>
+Available: {{ item.available }}
 
 <form action="{% url 'osp:add_to_basket' item.name %}" method="post">
 {% csrf_token %}
 Items to add: <input type="number" name="numofitems" id="numofitems" value="1"/>
-<br />
+<br>
+<br>
 <input type="submit" value="Add to basket" />
 </form>
 

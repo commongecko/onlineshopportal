@@ -1,0 +1,29 @@
+{% extends "osp/base.html" %}
+
+{% block content %}
+
+{% if perms.osp.add_item %}
+<h3>Add new item</h3>
+
+<form action="{% url 'osp:add_item' %}" method="post">
+{% csrf_token %}
+Item name:<br>
+<input type="text" name="itemname" />
+<br>
+Price:<br>
+<input type="number" name="cost" />
+<br>
+Discount:<br>
+<input type="number" name="discount" />
+<br>
+Number of items to add (availability):<br>
+<input type="number" name="available" />
+<br>
+<br>
+<input type="submit" value="Add item" />
+</form>
+{% else %}
+<h3>You can't add items.</h3>
+{% endif %}
+
+{% endblock %}

@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^history/$', views.history, name='history'),
     url(r'^wishlist/$', views.wishlist, name='wishlist'),
     url(r'^(?P<prod_name>\w+\d+)/wishlist/$', views.add_to_wishlist, name='add_to_wishlist'),
+    url(r'^additem/$', views.add_item, name='add_item'),
 ]

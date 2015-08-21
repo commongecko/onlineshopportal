@@ -10,6 +10,9 @@
             <em> {{ user }}! </em>
             <a href="{% url 'logout' %}">logout</a>
         {% endif %}
+        {% if perms.osp.add_item %}
+            <a href="{% url 'osp:add_item' %}">+Item</a>
+        {% endif %}
     </div>
 
     <p>

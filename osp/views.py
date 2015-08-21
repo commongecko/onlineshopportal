@@ -141,3 +141,17 @@ def history(request):
         transaction = Transaction(date=None, customer=c)  
         pass
     return render(request, 'osp/history.html', {'t': transaction})
+
+
+def add_item(request):
+    current_user = userassert(request)
+    if request.method == 'POST':
+        n = request.POST['itemname']
+        c = int(request.POST['cost'])
+        d = int(request.POST['discount'])
+        a = int(request.POST['available'])
+        newitem = Item(name=n, cost=c, discount=d, available=a, seller=current_user)
+        newitem.save()
+        return render(request, 'osp/itemadded.html',) 
+    else:
+        return render(request, 'osp/additem.html',)
