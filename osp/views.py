@@ -19,7 +19,7 @@ def userassert(req):
 
 
 def index(request):
-    item_list = Item.objects.all()
+    item_list = Item.objects.filter(listed=True)
     context = {'item_list': item_list}
     return render(request, 'osp/index.html',context)
 
@@ -41,7 +41,7 @@ def basket(request):
 
 
 def detail(request, prod_name):
-    item = Item.objects.get(name=prod_name)
+    item = Item.objects.get(name=prod_name, listed=True)
     if request.user.has_perm('osp.change_item') and item.seller == request.user.username:
         edit = True
     else:
@@ -54,37 +54,44 @@ def detail(request, prod_name):
 
 def add_to_basket(request, prod_name):
     current_user = userassert(request)
-    item = Item.objects.get(name=prod_name)
+
     try:
         c = Customer.objects.get(name=current_user)
     except ObjectDoesNotExist:
         c = Customer(name=current_user)
         c.save()
 
-    # TODO: Account for discount
+    try:
+        basket = Basket.objects.get(current=True, customer=c)
+    except ObjectDoesNotExist:
+        basket = Basket(customer=c, totalbill=0, current=True)
+        basket.save()
 
     try:
-        basket = Basket.objects.get(current=True)
+        item = basket.item_set.get(name=prod_name)
     except ObjectDoesNotExist:
-        item.purchase_quantity = int(request.POST['numofitems']) 
-        t = item.purchase_quantity * item.cost
+        item = Item.objects.get(name=prod_name, listed=True)
+        # Create an unlisted copy of item
+        item.pk = None
+        item.id = None
+        item.wishlist_id = None
+        item.listed = False
         item.save()
-        basket = Basket(customer=c, totalbill=t, current=True)
-        basket.save()
-    else:
-        item.purchase_quantity += int(request.POST['numofitems'])
-        item.save()
-        t = item.purchase_quantity * item.cost
-        basket.totalbill += t
-        basket.save()
+        basket.item_set.add(item)    
 
-    basket.item_set.add(item)    
+    item.purchase_quantity += int(request.POST['numofitems'])
+    dis = (item.discount/100) * item.cost
+    t = (item.purchase_quantity * item.cost) - dis
+    item.save()
+    basket.totalbill += t
+    basket.save()
+
     return HttpResponseRedirect(reverse('osp:basket'))
 
 
 def add_to_wishlist(request, prod_name):
     current_user = userassert(request)
-    item = Item.objects.get(name=prod_name)
+    item = Item.objects.get(name=prod_name, listed=True)
     try:
         c = Customer.objects.get(name=current_user)
     except:
@@ -118,18 +125,19 @@ def wishlist(request):
 
 def checkout(request):
     current_user = userassert(request)
-    basket = Basket.objects.get(current=True)
+    basket = Basket.objects.get(current=True, customer__name=current_user)
     c = Customer.objects.get(name=current_user)
     
     try:
-        transaction = Transaction(date=datetime.now(), customer=c)
+        transaction = Transaction(customer=c)
         transaction.save()
     except IntegrityError:
         transaction = Transaction.objects.get(customer__name=current_user)
         transaction.basket_set.add(basket)
     
     try:
-        basket = Basket.objects.get(current=True)
+        basket = Basket.objects.get(current=True, customer=c)
+        basket.date = datetime.now()
         basket.current = False
         basket.save()
         transaction.basket_set.add(basket)
@@ -144,10 +152,7 @@ def history(request):
     try:
         transaction = Transaction.objects.get(customer__name=current_user)
     except ObjectDoesNotExist:
-        # Create dummy Transaction object
-        c = Customer(name='dummy')
-        c.save()
-        transaction = Transaction(date=None, customer=c)  
+        transaction = Transaction(customer=None)  
         pass
     return render(request, 'osp/history.html', {'t': transaction})
 
@@ -193,3 +198,10 @@ def del_item(request, prod_name):
         item.delete()
 
     return HttpResponseRedirect(reverse('osp:index'))
+
+
+def item_history(request, prod_name):
+    seller_item_basket = Basket.objects.filter(item__name=prod_name)
+    return render(request, 'osp/itemhistory.html', 
+                  {'seller_item_basket': seller_item_basket,
+                   'item'              : prod_name })

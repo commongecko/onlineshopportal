@@ -6,7 +6,8 @@
 
 {% if edit %}
     <a href="{% url 'osp:edit_item' item.name %}">Edit</a> | 
-    <a href="{% url 'osp:del_item' item.name %}">Delete</a>
+    <a href="{% url 'osp:del_item' item.name %}">Delete</a> |
+    <a href="{% url 'osp:item_history' item.name %}">Purchase history</a>
     <br><br>
 {% endif %}
 Price: Rs {{ item.cost }}

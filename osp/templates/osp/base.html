@@ -1,7 +1,7 @@
 <html>
 <title>Online shopping portal</title>
 <body>
-    <div>
+    <div align="left">
         Welcome,
         {% if user.is_anonymous %}
             <em> Guest! </em>
@@ -13,6 +13,13 @@
         {% if perms.osp.add_item %}
             <a href="{% url 'osp:add_item' %}">+Item</a>
         {% endif %}
+    </div>
+
+    <div align="right">
+            <a href="{% url 'osp:index' %}">Home</a>
+        <a href="{% url 'osp:basket' %}">Basket</a>
+        <a href="{% url 'osp:history' %}">History</a>
+        <a href="{% url 'osp:wishlist' %}">Wishlist</a>
     </div>
 
     <p>

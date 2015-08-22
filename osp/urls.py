@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^additem/$', views.add_item, name='add_item'),
     url(r'^edititem/(?P<prod_name>\w+\d+)/$', views.edit_item, name='edit_item'),
     url(r'^delitem/(?P<prod_name>\w+\d+)/$', views.del_item, name='del_item'),
+    url(r'^itemhistory/(?P<prod_name>\w+\d+)/$', views.item_history, name='item_history'),
 ]

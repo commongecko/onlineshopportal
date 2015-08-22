@@ -11,7 +11,7 @@
     {% for basket in t.basket_set.all %}
         <li>
         <ul>
-        {{ t.date }}
+        {{ basket.date }}
         <br />
         {% for item in basket.item_set.all %}
         <li>{{ item.name }} - {{ item.cost }} - Qty: {{ item.purchase_quantity }}</li>

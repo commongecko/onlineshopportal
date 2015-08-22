@@ -1,0 +1,16 @@
+{% extends "osp/base.html" %}
+
+{% block content %}
+
+<h3>Purchase history for {{ item }}</h3>
+<ol>
+{% for b in seller_item_basket %}
+    <li>
+    {{ b.customer.name }} <br>
+    {{ b.date }} <br>
+    </li>
+    <br>
+{% endfor %}
+</ol>
+
+{% endblock %}
