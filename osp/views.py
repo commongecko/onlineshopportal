@@ -172,7 +172,7 @@ def add_item(request):
 
 
 def edit_item(request, prod_name):
-    item = Item.objects.get(name=prod_name)
+    item = Item.objects.get(name=prod_name, listed=True)
     if request.user.has_perm('osp.change_item') and item.seller == request.user.username:
         edit = True
     else:
@@ -193,7 +193,7 @@ def edit_item(request, prod_name):
 
 
 def del_item(request, prod_name):
-    item = Item.objects.get(name=prod_name)
+    item = Item.objects.get(name=prod_name, listed=True)
     if request.user.has_perm('osp.delete_item') and item.seller == request.user.username:
         item.delete()
 

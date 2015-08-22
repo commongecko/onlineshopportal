@@ -5,22 +5,25 @@
 {% if perms.osp.add_item %}
 <h3>Add new item</h3>
 
-<form action="{% url 'osp:add_item' %}" method="post">
+<form role="form" action="{% url 'osp:add_item' %}" method="post">
 {% csrf_token %}
-Item name:<br>
-<input type="text" name="itemname" />
-<br>
-Price:<br>
-<input type="number" name="cost" />
-<br>
-Discount:<br>
-<input type="number" name="discount" />
-<br>
-Number of items to add (availability):<br>
-<input type="number" name="available" />
-<br>
-<br>
-<input type="submit" value="Add item" />
+<div class="form-group">
+    <label for="name">Item name:</label>
+    <input type="text" class="form-control" name="itemname">
+</div>
+<div class="form-group">
+    <label for="number">Price:</label>
+    <input type="number" class="form-control" name="cost">
+</div>
+<div class="form-group">
+    <label for="number">Discount:</label>
+    <input type="number" class="form-control" name="discount">
+</div>
+<div class="form-group">
+    <label for="number">Number of items to add (availability):</label>
+    <input type="number" class="form-control" name="available">
+</div>
+<input type="submit" class="btn btn-default" value="Add item">
 </form>
 {% else %}
 <h3>You can't add items.</h3>

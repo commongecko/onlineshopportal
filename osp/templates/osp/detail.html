@@ -5,10 +5,12 @@
 <h3>{{ item.name }}</h3> 
 
 {% if edit %}
-    <a href="{% url 'osp:edit_item' item.name %}">Edit</a> | 
-    <a href="{% url 'osp:del_item' item.name %}">Delete</a> |
-    <a href="{% url 'osp:item_history' item.name %}">Purchase history</a>
-    <br><br>
+    <div class="btn-group btn-group-justified">
+    <a href="{% url 'osp:edit_item' item.name %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'osp:del_item' item.name %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'osp:item_history' item.name %}"class="btn btn-primary">Purchase history</a>
+    </div>
+    <br>
 {% endif %}
 Price: Rs {{ item.cost }}
 <br>
@@ -23,12 +25,12 @@ Available: {{ item.available }}
 Items to add: <input type="number" name="numofitems" id="numofitems" value="1"/>
 <br>
 <br>
-<input type="submit" value="Add to basket" />
+<input type="submit" class="btn btn-primary btn-block" value="Add to basket" />
 </form>
 
 <form action="{% url 'osp:add_to_wishlist' item.name %}" method="post">
 {% csrf_token %}
-<input type="submit" value="Add to wishlist" />
+<input type="submit" class="btn btn-default btn-block" value="Add to wishlist" />
 </form>
 
 {% endblock %}

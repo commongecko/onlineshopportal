@@ -9,13 +9,14 @@
     <ol>
     {% for item in wishlist.item_set.all %}
         <li><a href="{% url 'osp:detail' item.name %}">{{ item.name }}</a> - Rs{{ item.cost }}
-        <br />
+        <br>
         <form action="{% url 'osp:add_to_basket' item.name %}" method="post">
 {% csrf_token %}
-        Qty: <input type="number" name="numofitems" id="numofitems" value="1"/>
-        <input type="submit" value="Move to basket" />
+        Qty: <input type="number" class="form-control" name="numofitems" id="numofitems" value="1"/>
+        <input type="submit" class="btn btn-default" value="Move to basket" />
         </form>
         </li>
+        <br>
     {% endfor %}
 {% endif %}
 

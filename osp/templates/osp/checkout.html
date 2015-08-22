@@ -1,3 +1,7 @@
-You have checked out!
-<br />
-<a href="{% url 'osp:history' %}">Order history</a>
+{% extends "osp/base.html" %}
+
+{% block content %}
+<h3>You have checked out!</h3>
+<br>
+<h2><a href="{% url 'osp:history' %}">Order history</a></h2>
+{% endblock %}

@@ -1,26 +1,44 @@
-<html>
-<title>Online shopping portal</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online shopping portal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
 <body>
-    <div align="left">
-        Welcome,
-        {% if user.is_anonymous %}
-            <em> Guest! </em>
-            <a href="{% url 'login' %}">login</a>
-        {% else %}
-            <em> {{ user }}! </em>
-            <a href="{% url 'logout' %}">logout</a>
-        {% endif %}
-        {% if perms.osp.add_item %}
-            <a href="{% url 'osp:add_item' %}">+Item</a>
-        {% endif %}
-    </div>
 
-    <div align="right">
-            <a href="{% url 'osp:index' %}">Home</a>
-        <a href="{% url 'osp:basket' %}">Basket</a>
-        <a href="{% url 'osp:history' %}">History</a>
-        <a href="{% url 'osp:wishlist' %}">Wishlist</a>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+                <a class="navbar-brand" href="#">Onlineshopport</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'osp:index' %}">Home</a></li>
+                <li><a href="{% url 'osp:basket' %}">Basket</a></li>
+                <li><a href="{% url 'osp:history' %}">History</a></li>
+                <li><a href="{% url 'osp:wishlist' %}">Wishlist</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>Welcome,
+                {% if user.is_anonymous %}
+                <em> Guest! </em></a>
+                </li>
+                <li><a href="{% url 'login' %}">Login <span class="glyphicon glyphicon-log-in"></span></a></li>
+                {% else %}
+                <em> {{ user }}! </em></a></li>
+                <li><a href="{% url 'logout' %}">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+                {% endif %}
+                {% if perms.osp.add_item %}
+                <li><a href="{% url 'osp:add_item' %}">+Item</a></li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
+</nav>
 
     <p>
     {% block content %}
