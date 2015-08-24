@@ -19,7 +19,10 @@ def userassert(req):
 
 
 def index(request):
-    item_list = Item.objects.filter(listed=True)
+    if request.user.has_perm('osp.change_item'):
+        item_list = Item.objects.filter(listed=True, seller=request.user.username)
+    else:
+        item_list = Item.objects.filter(listed=True)
     context = {'item_list': item_list}
     return render(request, 'osp/index.html',context)
 
@@ -205,3 +208,13 @@ def item_history(request, prod_name):
     return render(request, 'osp/itemhistory.html', 
                   {'seller_item_basket': seller_item_basket,
                    'item'              : prod_name })
+
+
+def logged_out(request):
+    """
+    Custom view to render logged out template 
+    as the default logout view would not render it
+
+    """
+    return render(request, 'osp/logged_out.html',)
+

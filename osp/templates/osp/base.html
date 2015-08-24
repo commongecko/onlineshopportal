@@ -18,9 +18,11 @@
         <div>
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'osp:index' %}">Home</a></li>
-                <li><a href="{% url 'osp:basket' %}">Basket</a></li>
-                <li><a href="{% url 'osp:history' %}">History</a></li>
-                <li><a href="{% url 'osp:wishlist' %}">Wishlist</a></li>
+                {% if not perms.osp.add_item %}
+                    <li><a href="{% url 'osp:basket' %}">Basket</a></li>
+                    <li><a href="{% url 'osp:history' %}">History</a></li>
+                    <li><a href="{% url 'osp:wishlist' %}">Wishlist</a></li>
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a>Welcome,

@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -15,4 +16,6 @@ urlpatterns = [
     url(r'^delitem/(?P<prod_name>.+)/$', views.del_item, name='del_item'),
     url(r'^itemhistory/(?P<prod_name>.+)/$', views.item_history, name='item_history'),
     url(r'^(?P<prod_name>.+)/details/$', views.detail, name='detail'),
+    url(r'^logout/$', auth_views.logout, {'next_page': '/logged_out/'}),
+    url(r'^logged_out/$', views.logged_out, name='logged_out'),
 ]

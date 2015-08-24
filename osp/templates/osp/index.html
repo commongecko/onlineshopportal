@@ -2,8 +2,12 @@
 
 {% block content %}
 
-<h1>Shop online</h1>
-<h3>Available items</h3>
+<h1>Shop online!</h1>
+{% if perms.osp.add_item %}
+    <h3>Your items</h3>
+{% else %}
+    <h3>Available items</h3>
+{% endif %}
 {% if item_list %}
     <ul>
     {% for item in item_list %}
