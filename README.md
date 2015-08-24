@@ -1,5 +1,25 @@
 # onlineshopportal
 
+## ER diagram
+http://i.imgur.com/jy3XSpi.png
+
+## Login Credentials
+#### Admin superuser
+    user: admin
+    pass: abc
+
+#### Seller user with item modify/add/delete permissions
+    user: seller1
+    pass: seller1
+
+#### Customer user
+    user: user
+    pass: user
+
+    user: user2
+    pass: user2
+
+
 Problem statement:
 This is a online shopping portal application with basic functionlities. The app has two types of users- admin and customers. Admin manages the app (adding items, discounts and modifying user profiles)  and customers use the app to shop online. App should have following features implemented.
 
