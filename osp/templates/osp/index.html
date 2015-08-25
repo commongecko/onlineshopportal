@@ -1,6 +1,11 @@
 {% extends "osp/base.html" %}
 
 {% block content %}
+<script>
+$(document).ready(function(){
+    $('#home').addClass('active');
+});
+</script>
 
 <h1>Shop online!</h1>
 {% if perms.osp.add_item %}

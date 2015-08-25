@@ -1,6 +1,9 @@
 {% extends "osp/base.html" %}
 
 {% block content %}
+<script>
+    $('#additem').addClass('active');
+</script>
 
 {% if perms.osp.add_item %}
 <h3>Add new item</h3>

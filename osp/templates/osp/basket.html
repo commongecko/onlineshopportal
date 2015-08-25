@@ -1,6 +1,9 @@
 {% extends "osp/base.html" %}
 
 {% block content %}
+<script>
+    $('#basket').addClass('active');
+</script>
 
 <h3>Shopping basket</h3>
 {% if not basket.item_set.all %}

@@ -30,10 +30,29 @@ Items to add: <input type="number" name="numofitems" id="numofitems" value="1"/>
     <br><br>
     <div class="btn-group">
     <a href="{% url 'osp:edit_item' item.name %}" class="btn btn-primary">Edit</a>
-    <a href="{% url 'osp:del_item' item.name %}" class="btn btn-danger">Delete</a>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm">Delete</button>
+    <!-- <a href="{# url 'osp:del_item' item.name #}" class="btn btn-danger">Delete</a> -->
     <a href="{% url 'osp:item_history' item.name %}"class="btn btn-primary">Purchase history</a>
     </div>
-    <br>
+
+<div id="confirm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete {{ item.name }}?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{% url 'osp:del_item' item.name %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+    </div>
+</div>
+
 {% endif %}
 
 {% endblock %}

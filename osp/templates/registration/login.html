@@ -1,6 +1,9 @@
 {% extends "osp/base.html" %}
 
 {% block content %}
+<script>
+    $('#login').addClass('active');
+</script>
 
 <h3>Log in</h3>
 {% if form.errors %}
@@ -29,15 +32,19 @@
 </tr>
 </table>
 -->
-<div class="form-group">
+<div class="form-group col-xs-4">
     {{ form.username.label_tag }}
-    <input type="username" name="username" class="form-control" id="id_username" maxlength="254">
+    <input type="username" name="username" class="form-control" id="id_username" maxlength="254" placeholder="Enter username">
 </div>
-<div class="form-group">
+<br><br><br><br>
+<div class="form-group col-xs-4">
     {{ form.password.label_tag }}
-    <input type="password" class="form-control" id="id_password" name="password">
+    <input type="password" class="form-control" id="id_password" name="password" placeholder="Enter password">
 </div>
+<br><br>
+<div class="col-xs-12">
 <input type="submit" class="btn btn-default" value='login'>
+</div>
 <input type="hidden" name="next" value="{{ next }}">
 </form>
 

@@ -32,7 +32,7 @@ class Item(models.Model):
     purchase_quantity = models.IntegerField(default=0)
     listed = models.BooleanField(default=True)
     basket = models.ManyToManyField(Basket)
-    wishlist = models.ForeignKey(Wishlist, null=True)
+    wishlist = models.ManyToManyField(Wishlist)
     seller = models.CharField(max_length=50, null=True)
 
     def __unicode__(self):

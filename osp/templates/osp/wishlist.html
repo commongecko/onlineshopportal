@@ -1,6 +1,9 @@
 {% extends "osp/base.html" %}
 
 {% block content %}
+<script>
+    $('#wishlist').addClass('active');
+</script>
 
 <h3>Wishlist</h3>
 {% if not wishlist.item_set.all %}

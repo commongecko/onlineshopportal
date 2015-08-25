@@ -17,11 +17,11 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'osp:index' %}">Home</a></li>
+                <li id="home"><a href="{% url 'osp:index' %}">Home</a></li>
                 {% if not perms.osp.add_item %}
-                    <li><a href="{% url 'osp:basket' %}">Basket</a></li>
-                    <li><a href="{% url 'osp:history' %}">History</a></li>
-                    <li><a href="{% url 'osp:wishlist' %}">Wishlist</a></li>
+                    <li id="basket"><a href="{% url 'osp:basket' %}">Basket</a></li>
+                    <li id="history"><a href="{% url 'osp:history' %}">History</a></li>
+                    <li id="wishlist"><a href="{% url 'osp:wishlist' %}">Wishlist</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -29,23 +29,25 @@
                 {% if user.is_anonymous %}
                 <em> Guest! </em></a>
                 </li>
-                <li><a href="{% url 'login' %}">Login <span class="glyphicon glyphicon-log-in"></span></a></li>
+                <li id='login'><a href="{% url 'login' %}">Login <span class="glyphicon glyphicon-log-in"></span></a></li>
                 {% else %}
                 <em> {{ user }}! </em></a></li>
                 <li><a href="{% url 'logout' %}">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
                 {% endif %}
                 {% if perms.osp.add_item %}
-                <li><a href="{% url 'osp:add_item' %}">+Item</a></li>
+                <li id='additem'><a href="{% url 'osp:add_item' %}">+Item</a></li>
                 {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
+<div class="container">
     <p>
     {% block content %}
 
     {% endblock %}
     </p>
+</div>
 </body>
 </html>
