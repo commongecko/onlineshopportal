@@ -20,7 +20,7 @@ http://i.imgur.com/jy3XSpi.png
     pass: user2
 
 
-Problem statement:
+## Problem statement:
 This is a online shopping portal application with basic functionlities. The app has two types of users- admin and customers. Admin manages the app (adding items, discounts and modifying user profiles)  and customers use the app to shop online. App should have following features implemented.
 
     Phase -I
